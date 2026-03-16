@@ -1,0 +1,16 @@
+//! aurum — Goldilocks prime field library.
+
+#![no_std]
+
+pub mod field;
+pub mod encoding;
+pub mod ntt;
+pub mod sqrt;
+pub mod batch;
+pub mod extension;
+
+#[cfg(test)]
+mod vectors;
+
+pub use field::Goldilocks;
+pub use extension::Fp2;
