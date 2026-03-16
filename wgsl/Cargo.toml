@@ -1,0 +1,10 @@
+[package]
+name = "aurum-wgsl"
+version = "0.1.0"
+edition = "2024"
+description = "GPU backend for aurum — Goldilocks field via wgpu compute shaders"
+
+[dependencies]
+aurum = { path = "../rs" }
+wgpu = "24"
+pollster = "0.4"
