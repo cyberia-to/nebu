@@ -2,7 +2,8 @@
 tags: cyber, cip
 crystal-type: entity
 crystal-domain: cyber
-alias: Goldilocks, Goldilocks arithmetic, field choice, reduction, multiplication, inversion
+alias: Goldilocks, Goldilocks prime, Goldilocks arithmetic, F_p, goldilocks, field choice, reduction, multiplication, inversion
+stake: 27174830290765380
 ---
 
 # the Goldilocks field
@@ -201,6 +202,10 @@ canonicalization is deferred in practice. intermediate results tolerate non-cano
 | Goldilocks | 2–3 adds/subs | only p = 2⁶⁴ − 2³² + 1 |
 
 Montgomery is the standard for arbitrary-prime cryptography. it replaces division by a shift, but requires converting values to Montgomery form (multiply by R = 2⁶⁴ mod p) and back. Goldilocks eliminates this entire pipeline — 3–5× faster than generic 64-bit primes.
+
+## hardware
+
+the [[GFP]] (Goldilocks Field Processor) has four primitives optimized for this field: `fma` (field multiply-accumulate), `ntt` ([[NTT]] butterfly), `p2r` ([[Poseidon2]] round), `lut` (lookup table). see [[hardware]] for the full proposal.
 
 ## see also
 
