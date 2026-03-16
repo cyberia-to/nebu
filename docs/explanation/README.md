@@ -2,11 +2,31 @@
 tags: cyber, cip
 crystal-type: entity
 crystal-domain: cyber
-alias: aurum explanation, field rationale
+alias: aurum explanation, field encyclopedia
 ---
 
-# why aurum works the way it does
+# finite field arithmetic
 
-design decisions behind the Goldilocks field library.
+an encyclopedia of the mathematics behind the Goldilocks field — from first principles to applications. every concept is grounded in the field we implement: p = 2⁶⁴ − 2³² + 1.
 
-- [[why-goldilocks]] — native u64 arithmetic, STARK compatibility, universal substrate, the double seven
+## foundations
+
+- [[finite-fields]] — field axioms, existence and uniqueness, GF(p), characteristic, the multiplicative group
+- [[modular-arithmetic]] — congruence, residue classes, Fermat's little theorem, constant-time arithmetic
+
+## the Goldilocks field
+
+- [[goldilocks]] — why this prime, the ε reduction identity, add/sub/mul/inversion algorithms, S-box, batch inversion, comparison with Barrett and Montgomery
+
+## algebraic structure
+
+- [[roots-of-unity]] — primitive roots, generators, quadratic residues, subgroup lattice, twiddle factors
+
+## transforms and polynomials
+
+- [[ntt-theory]] — the NTT as finite-field FFT, butterfly decomposition, Cooley-Tukey, Gentleman-Sande, complexity
+- [[polynomial-arithmetic]] — evaluation, interpolation, convolution, Reed-Solomon codes, Schwartz-Zippel lemma
+
+## applications
+
+- [[applications]] — STARK proofs, Poseidon2 hashing, FHE, polynomial commitments, verifiable computation
