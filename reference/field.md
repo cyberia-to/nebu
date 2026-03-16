@@ -90,7 +90,7 @@ mul(a, b):
 
 the 128-bit product splits into high and low halves. the high 64 bits represent multiples of 2⁶⁴. the reduction identity replaces 2⁶⁴ with ε:
 
-- `x_hi_hi` (bits 96–127): contributes `x_hi_hi · 2⁹⁶ = x_hi_hi · ε · 2³² = x_hi_hi · (2⁶⁴ − 2³²) = x_hi_hi · (p − 1) ≡ −x_hi_hi` (mod p), hence the subtraction
+- `x_hi_hi` (bits 96–127): contributes `x_hi_hi · 2⁹⁶ ≡ x_hi_hi · ε · 2³² = x_hi_hi · (2⁶⁴ − 2³²) = x_hi_hi · (p − 1) ≡ −x_hi_hi` (mod p), hence the subtraction
 - `x_hi_lo` (bits 64–95): contributes `x_hi_lo · 2⁶⁴ ≡ x_hi_lo · ε`, hence the multiplication
 
 no division. no trial subtraction loop. three 64-bit operations after the u128 multiply.

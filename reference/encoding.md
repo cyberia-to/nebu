@@ -44,10 +44,10 @@ bytes:    [v & 0xFF, (v >> 8) & 0xFF, ..., (v >> 56) & 0xFF]
 
 ## rate and throughput
 
-with rate r = 8 field elements per sponge block, the input throughput per block is:
+the throughput depends on the sponge rate r (number of field elements absorbed per permutation call). for [[hemera]] with rate r = 8:
 
 ```
-8 elements × 7 bytes/element = 56 bytes/block
+r elements × 7 bytes/element = 7r bytes/block
 ```
 
-one permutation absorbs 56 bytes of input data. for a 4096-byte chunk: ⌈4096/56⌉ = 74 permutations.
+at r = 8: 56 bytes/block. for a 4096-byte chunk: ⌈4096/56⌉ = 74 permutations.
