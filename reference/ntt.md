@@ -98,6 +98,7 @@ intt(a[0..N], g):
   k = log2(N)
   for s in (0..k).rev():
     m = 2^(s+1)
+    ω_m = g^((p−1) / m)
     ω_m_inv = ω_m^(m − 1)                   // = ω_m⁻¹, since ω_m^m = 1
     for j in (0..N).step_by(m):
       w = 1
@@ -119,7 +120,7 @@ N⁻¹ mod p exists because gcd(N, p) = 1 (N is a power of 2, p is odd).
 
 ## twiddle factor precomputation
 
-for NTT of fixed length N, the twiddle factors ω_m^i can be precomputed and stored in a table of N/2 elements. this trades N/2 field elements of memory for eliminating repeated exponentiations during the transform.
+for NTT of fixed length N, the twiddle factors ω_m^i can be precomputed and stored in a table of N − 1 elements (sum of m/2 entries across all k stages). this trades N − 1 field elements of memory for eliminating repeated exponentiations during the transform.
 
 ```
 precompute_twiddles(N, g):
@@ -135,7 +136,7 @@ precompute_twiddles(N, g):
   return table
 ```
 
-the inverse NTT uses the conjugate twiddles: replace each ω with ω⁻¹ = ω^(N−1).
+the inverse NTT uses the conjugate twiddles: at each stage with root ω_m, replace ω_m^i with ω_m^(m−i) (i.e., the inverse root for that stage).
 
 ## hardware support
 

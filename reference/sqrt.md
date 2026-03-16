@@ -56,7 +56,9 @@ sqrt(n):
   R = n^((s+1)/2) mod p                       // initial guess
 
   loop:
-    if t = 1: return R
+    if t = 1:
+      if R > (p−1)/2: R = p − R              // canonical: pick r ≤ (p−1)/2
+      return R
     find least i > 0 such that t^(2^i) = 1    // i < M always
     b = c^(2^(M−i−1)) mod p                   // adjustment factor
     M = i

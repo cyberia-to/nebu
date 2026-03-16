@@ -57,7 +57,7 @@ two F_p subtractions.
 
 since u² = 7, the cross term bd·u² = 7bd folds into the real part.
 
-cost: 4 F_p multiplications + 2 F_p additions. can be reduced to 3 multiplications using Karatsuba:
+cost: 4 F_p multiplications + 1 multiplication by 7 + 2 F_p additions. can be reduced to 3 multiplications using Karatsuba:
 
 ```
 mul(x, y):                                     // x = (a, b), y = (c, d)
@@ -68,7 +68,7 @@ mul(x, y):                                     // x = (a, b), y = (c, d)
   return (re, im)
 ```
 
-3 F_p multiplications + 1 multiplication by 7 + 4 F_p additions.
+3 F_p multiplications + 1 multiplication by 7 + 5 F_p additions/subtractions.
 
 ### squaring
 

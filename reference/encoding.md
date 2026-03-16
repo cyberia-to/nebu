@@ -23,15 +23,17 @@ the maximum 7-byte value is 2⁵⁶ − 1 = 72057594037927935. since 2⁵⁶ −
 
 8 bytes would not work: the maximum 8-byte value 2⁶⁴ − 1 exceeds p. encoding would require a conditional branch to check and reduce — breaking constant-time guarantees and adding complexity.
 
-this is the other half of the double seven (see [[goldilocks]] § the double seven): d = 7 is the minimum invertible S-box exponent, and 7 bytes is the maximum unconditional encoding width. both forced by the same prime.
+this is the other half of the double seven (see [[goldilocks]] § why this prime): d = 7 is the minimum invertible S-box exponent, and 7 bytes is the maximum unconditional encoding width. both forced by the same prime.
 
 ## padding
 
-the last chunk may have fewer than 7 bytes. it is zero-padded to 7 bytes. the total input length is recorded in the sponge capacity (state[10]) during finalization, which disambiguates inputs that differ only in trailing zeros.
+the last chunk may have fewer than 7 bytes. it is zero-padded to 7 bytes. an empty input (0 bytes) absorbs no chunks.
+
+the zero-padding alone is not injective: a 6-byte input ending in non-zero and a 7-byte input with a trailing 0x00 produce the same field element. disambiguation requires recording the total input length externally. in [[hemera]], the length is stored in the sponge capacity (state[10]) during finalization. other systems using this encoding must provide an equivalent mechanism.
 
 ## field elements to bytes
 
-output field elements are serialized as 8-byte little-endian canonical u64 values.
+output field elements are canonicalized (reduced to [0, p)) and serialized as 8-byte little-endian u64 values.
 
 ```
 element:  v (where 0 ≤ v < p)
