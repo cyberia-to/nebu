@@ -214,3 +214,6 @@ the [[GFP]] (Goldilocks Field Processor) has four primitives optimized for this 
 - [[roots-of-unity]] — the cyclic structure enabling NTT
 - [[ntt-theory]] — where multiplication meets polynomial arithmetic
 - [[applications]] — STARK proofs, Poseidon2, FHE
+- [[sqrt]] — square root (Tonelli-Shanks) over Goldilocks
+- [[batch]] — batch inversion (Montgomery's trick)
+- [[extension]] — F_{p²} for 128-bit recursive STARK security

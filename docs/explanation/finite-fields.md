@@ -86,12 +86,15 @@ the generator g = 7 produces every nonzero element: {7⁰, 7¹, 7², ..., 7^(p�
 
 GF(p²) extends GF(p) by adjoining a root of an irreducible quadratic. elements are pairs (a, b) representing a + b·α where α² is irreducible over GF(p). arithmetic follows polynomial rules with reduction modulo the minimal polynomial.
 
-extension fields matter for: pairing-based cryptography (BN254, BLS12-381), quadratic extensions for efficient square root algorithms, and the quantum simulation domain in [[cyber]] where unitary matrices live over F_{p²}.
+for the Goldilocks field: F_{p²} = F_p[u] / (u² − 7), where 7 is a quadratic non-residue. elements are a + b·u with u² = 7. multiplication: (a + bu)(c + du) = (ac + 7bd) + (ad + bc)u. inversion reduces to a single F_p inversion via the norm: (a + bu)⁻¹ = (a − bu) / (a² − 7b²). see [[extension]] for the full specification.
 
-the Goldilocks field's primary use is as a base field — most operations in [[hemera]], STARK proving, and polynomial arithmetic happen in F_p directly.
+extension fields matter for recursive STARK verification — the base field gives ~64 bits of security, while sampling FRI challenges from F_{p²} provides 128-bit security. they also appear in pairing-based cryptography (BN254, BLS12-381) and quantum simulation where unitary matrices live over F_{p²}.
+
+most operations in [[hemera]], STARK proving, and polynomial arithmetic happen in F_p directly. F_{p²} is used specifically where the security margin requires it.
 
 ## see also
 
 - [[modular-arithmetic]] — how arithmetic mod p actually works
 - [[goldilocks]] — why this prime, how its reduction works
 - [[roots-of-unity]] — the cyclic structure of F_p*
+- [[extension]] — F_{p²} construction and arithmetic

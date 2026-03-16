@@ -72,7 +72,7 @@ an element a is a quadratic residue if a = b² for some b. the Euler criterion: 
 exactly half of the nonzero elements are quadratic residues. the QRs form a subgroup of index 2 in F_p*.
 
 this matters for:
-- **square roots**: if a is a QR, a^((p+1)/4) is a square root (when p ≡ 3 mod 4). Goldilocks has p ≡ 1 mod 4, so the Tonelli-Shanks algorithm is needed instead.
+- **square roots**: if a is a QR, a^((p+1)/4) is a square root (when p ≡ 3 mod 4). Goldilocks has p ≡ 1 mod 4, so the Tonelli-Shanks algorithm is needed instead — see [[sqrt]] for the full specification.
 - **generator verification**: a generator must be a non-residue (since it generates the full group, not just the QR subgroup).
 
 ## the subgroup lattice
