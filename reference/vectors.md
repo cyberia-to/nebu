@@ -103,3 +103,25 @@ neg is self-inverse: −(−x) = x. row 2 and row 3 demonstrate this.
 | 6^((p−1)/2) mod p | `0x0000000000000001` |
 
 7^((p−1)/2) = p−1 ≠ 1, confirming 7 is a quadratic non-residue and thus a generator. candidates 2, 3, 5, 6 all yield 1, confirming they are quadratic residues (not generators).
+
+## inversion
+
+| a | a⁻¹ mod p |
+|---|---|
+| `0x0000000000000001` | `0x0000000000000001` |
+| `0x0000000000000002` | `0x7FFFFFFF80000001` |
+| `0xFFFFFFFF00000000` | `0xFFFFFFFF00000000` |
+
+row 1: 1⁻¹ = 1. row 2: 2⁻¹ = (p+1)/2. row 3: (p−1)⁻¹ = p−1, since (p−1)² = 1.
+
+verification: a · a⁻¹ mod p = 1 for each row.
+
+## roots of unity
+
+| expression | value | note |
+|---|---|---|
+| ω₂ = 7^((p−1)/2) | `0xFFFFFFFF00000000` | = p−1 = −1. ω₂² = 1 ✓ |
+| ω₂⁻¹ = ω₂^(2−1) | `0xFFFFFFFF00000000` | −1 is its own inverse |
+| 2⁻¹ mod p | `0x7FFFFFFF80000001` | N⁻¹ scaling factor for length-2 INTT |
+
+the 2-nd root of unity is −1. this is the base case for every NTT: the length-2 butterfly is (a+b, a−b).

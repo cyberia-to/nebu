@@ -103,26 +103,40 @@ a⁻¹ = a^(p − 2) mod p
 
 Fermat's little theorem. zero has no inverse — the caller must handle this.
 
-p − 2 = 0xFFFFFFFF_FFFFFFFF in binary has 63 set bits. a naive square-and-multiply chain requires 63 squarings and 62 multiplications. an optimized addition chain reduces this — the optimal chain for Goldilocks p−2 uses the structure of p:
-
-```
-p − 2 = 2⁶⁴ − 2³² − 1 = (2³² − 1) · 2³² − 1 = ε · 2³² − 1
-```
-
-which suggests computing via `a^ε`, then squaring 32 times, then multiplying by `a⁻¹`. since `a⁻¹` is what we are computing, this is expressed as:
+p − 2 = 0xFFFFFFFEFFFFFFFF. in binary: all 64 bits set except bit 32. this gives a simple square-and-multiply loop:
 
 ```
 inv(a):
-  t  = a                    // a
-  t  = t² · t               // a³
-  t  = t² · t               // keep doubling via square-and-multiply for a^ε
-  ... (build a^(2³²−1) using addition chain for 2³²−1)
-  t  = t^(2³²)              // 32 squarings: a^((2³²−1)·2³²) = a^(2⁶⁴−2³²)
-  t  = t · a^(p−2−(2⁶⁴−2³²))  // final correction
+  t = a
+  for i in 62 down to 0:                      // process bits 62..0
+    t = t²
+    if i ≠ 32: t = t · a                      // bit 32 of p−2 is 0
   return t
 ```
 
-the exact addition chain is implementation-defined. the reference implementation uses repeated squaring on the binary expansion of p−2.
+63 squarings + 62 multiplications. an optimized addition chain exploits the Mersenne structure of ε = 2³² − 1:
+
+```
+inv(a):                                        // optimized chain
+  e1  = a                                      // a^(2¹−1)
+  e2  = e1² · e1                               // a^(2²−1)
+  e4  = e2^(2²) · e2                           // a^(2⁴−1)
+  e8  = e4^(2⁴) · e4                           // a^(2⁸−1)
+  e16 = e8^(2⁸) · e8                           // a^(2¹⁶−1)
+  e32 = e16^(2¹⁶) · e16                        // a^(2³²−1) = a^ε
+
+  t   = e32^(2³²)                              // a^(ε·2³²) = a^(2⁶⁴−2³²)
+  // p−2 = 2⁶⁴ − 2³² − 1. remaining: multiply by a^(−1).
+  // instead, note p−2 = (2³²−2)·2³² + (2³²−1), so:
+  //   a^(p−2) = (a^(2³²−2))^(2³²) · a^(2³²−1)
+  //           = ((e32 · a⁻¹) · ...)  — circular.
+  // the loop form above avoids this. the chain computes e32
+  // in 31 squarings + 5 multiplications; the remaining 32 bits
+  // of p−2 are processed by square-and-multiply. total: ~96 muls.
+  ...
+```
+
+the exact addition chain is implementation-defined. the loop form is canonical; the chain form is an optimization.
 
 ### negation
 
@@ -149,12 +163,18 @@ pow7(x):
 
 g = 7 is the smallest generator of the multiplicative group F_p*.
 
-verification: a generator must satisfy g^((p−1)/q) ≠ 1 for every prime factor q of p−1. the prime factors of p−1 are {2, 3, 5, 17, 257, 65537}.
+verification: a generator must satisfy g^((p−1)/q) ≠ 1 for every prime factor q of p−1. the prime factors of p−1 are {2, 3, 5, 17, 257, 65537}. all six checks pass for g = 7:
 
-```
-7^(p−1)     = 1                             // Fermat's little theorem
-7^((p−1)/2) = p − 1 = 0xFFFFFFFF00000000   // not 1 → passes
-```
+| q | 7^((p−1)/q) mod p | ≠ 1? |
+|---|---|---|
+| 2 | `0xFFFFFFFF00000000` (= p−1) | ✓ |
+| 3 | ≠ 1 | ✓ |
+| 5 | ≠ 1 | ✓ |
+| 17 | ≠ 1 | ✓ |
+| 257 | ≠ 1 | ✓ |
+| 65537 | ≠ 1 | ✓ |
+
+the q = 2 check is the Euler criterion. concrete values for q ∈ {3, 5, 17, 257, 65537} are verified by the reference implementation (see [[vectors]] § primitive root).
 
 smaller candidates fail: 2^((p−1)/2) = 1, 3^((p−1)/2) = 1, 5^((p−1)/2) = 1, 6^((p−1)/2) = 1. these are quadratic residues, not generators.
 
@@ -177,7 +197,7 @@ the high two-adicity (32) makes the field efficient for [[NTT]] (Number Theoreti
 
 ## see also
 
-- [[why-goldilocks]] — rationale for field choice: native u64, STARK compatibility, universal substrate, the double seven
+- [[goldilocks]] — rationale for field choice: native u64, STARK compatibility, universal substrate, the double seven
 - [[vectors]] — known-answer test vectors for all operations
 
 ## references

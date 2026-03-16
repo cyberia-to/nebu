@@ -98,7 +98,7 @@ intt(a[0..N], g):
   k = log2(N)
   for s in (0..k).rev():
     m = 2^(s+1)
-    ω_m_inv = g^((p−1) − (p−1)/m)          // = (g^((p−1)/m))⁻¹
+    ω_m_inv = ω_m^(m − 1)                   // = ω_m⁻¹, since ω_m^m = 1
     for j in (0..N).step_by(m):
       w = 1
       for i in 0..m/2:
@@ -108,7 +108,7 @@ intt(a[0..N], g):
         a[j + i + m/2] = w · (u − v)
         w = w · ω_m_inv
   bit_reverse_permute(a)
-  n_inv = N⁻¹ mod p                        // = (p − (p−1)/N) mod p
+  n_inv = p − (p−1)/N                       // N⁻¹ mod p, since N·(p−(p−1)/N) = (N−1)p+1 ≡ 1
   for i in 0..N:
     a[i] = a[i] · n_inv
 ```
