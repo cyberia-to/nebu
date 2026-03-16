@@ -125,3 +125,55 @@ verification: a · a⁻¹ mod p = 1 for each row.
 | 2⁻¹ mod p | `0x7FFFFFFF80000001` | N⁻¹ scaling factor for length-2 INTT |
 
 the 2-nd root of unity is −1. this is the base case for every NTT: the length-2 butterfly is (a+b, a−b).
+
+## square root
+
+| a | legendre(a) | sqrt(a) |
+|---|---|---|
+| `0x0000000000000000` | `0x0000000000000000` | `0x0000000000000000` |
+| `0x0000000000000001` | `0x0000000000000001` | `0x0000000000000001` |
+| `0x0000000000000004` | `0x0000000000000001` | `0x0000000000000002` |
+| `0x0000000000000009` | `0x0000000000000001` | `0x0000000000000003` |
+| `0x0000000000000002` | `0x0000000000000001` | `0xFFFFFEFF01000101` |
+| `0x0000000000000007` | `0xFFFFFFFF00000000` | ⊥ (no root) |
+
+row 3: sqrt(4) = 2. row 5: sqrt(2) exists because 2 is a QR. row 6: 7 is a QNR — no square root.
+
+verification: r² mod p = a for each row with a root.
+
+## batch inversion
+
+| input | output |
+|---|---|
+| `[3, 5, 7]` | `[0xAAAAAAAA00000001, 0xCCCCCCCC00000001, 0x249249246DB6DB6E]` |
+
+verification: a[i] · result[i] mod p = 1 for each element. the batch result matches individual inversions (see § inversion for inv(1), inv(2); these extend the pattern).
+
+## extension field
+
+F_{p²} = F_p[u] / (u² − 7). elements written as (re, im) representing re + im·u.
+
+### extension multiplication
+
+| x | y | x · y |
+|---|---|---|
+| (2, 3) | (4, 5) | (`0x71`, `0x16`) |
+| (`0x123456789ABCDEF0`, `0xFEDCBA9876543210`) | (`0xAAAAAAAA`, `0x55555555`) | (`0x25ED096D7B425EDC`, `0xD7CC6BAE7839A5C3`) |
+
+row 1: (2+3u)(4+5u) = (8+105) + (10+12)u = 113 + 22u = (0x71, 0x16).
+
+### extension inversion
+
+| x | x⁻¹ |
+|---|---|
+| (2, 3) | (`0x49C341156822B63D`, `0x115B1E5F63CBEEA5`) |
+
+verification: x · x⁻¹ = (1, 0).
+
+### extension conjugate and norm
+
+| x | conj(x) | norm(x) |
+|---|---|---|
+| (1, 1) | (1, p−1) | `0xFFFFFFFEFFFFFFFB` |
+
+norm(1+u) = 1 − 7 = p − 6 = 0xFFFFFFFEFFFFFFFB.

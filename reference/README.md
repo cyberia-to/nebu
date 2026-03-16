@@ -17,6 +17,9 @@ canonical reference for the Goldilocks prime field, its arithmetic, and its hard
 | [[ntt]] | Number Theoretic Transform, roots of unity, butterfly, Cooley-Tukey |
 | [[encoding]] | 7-byte input encoding, 8-byte output encoding, padding, throughput |
 | [[vectors]] | known-answer test vectors for all field operations |
+| [[sqrt]] | square root, Legendre symbol, Tonelli-Shanks |
+| [[batch]] | batch inversion, Montgomery's trick |
+| [[extension]] | quadratic extension F_{p²}, 128-bit security |
 | [[hardware]] | GFP primitives: fma, ntt, p2r, lut (proposal) |
 
 ## see also

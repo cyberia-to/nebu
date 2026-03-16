@@ -198,6 +198,9 @@ the high two-adicity (32) makes the field efficient for [[NTT]] (Number Theoreti
 ## see also
 
 - [[goldilocks]] — rationale for field choice: native u64, STARK compatibility, universal substrate, the double seven
+- [[sqrt]] — square root (Tonelli-Shanks) and Legendre symbol
+- [[batch]] — batch inversion (Montgomery's trick)
+- [[extension]] — quadratic extension F_{p²} for 128-bit security
 - [[vectors]] — known-answer test vectors for all operations
 
 ## references
