@@ -549,9 +549,12 @@ plus NTT (Number Theoretic Transform) over roots of unity.
 | repo | path | role |
 |------|------|------|
 | aurum | `~/git/aurum/` | Goldilocks field arithmetic (this repo) |
-| hemera | `~/git/hemera/` | hash function, depends on aurum |
-| nox | (planned) | VM, depends on aurum + hemera |
-| trident | `~/git/trident/` | language, depends on aurum |
+| hemera | `~/git/hemera/` | hash function (Poseidon2), depends on aurum |
+| nox | `~/git/nox/` | VM, depends on aurum + hemera |
+| zheng | `~/git/zheng/` | proof system (SuperSpartan + WHIR) |
+| mudra | `~/git/mudra/` | crypto primitives (KEM, dCTIDH, TFHE, threshold) |
+| bbg | `~/git/bbg/` | authenticated state (Big Badass Graph) |
+| trident | `~/git/trident/` | language, compiles to nox |
 | cyber | `~/git/cyber/` | knowledge graph (parent subgraph) |
 
 ## do not touch zones
