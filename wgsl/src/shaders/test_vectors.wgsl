@@ -1,4 +1,4 @@
-// ── aurum/test_vectors ────────────────────────────────────────────
+// ── nebu/test_vectors ────────────────────────────────────────────
 //
 // Compute shader that validates field operations against known
 // test vectors from reference/vectors.md.

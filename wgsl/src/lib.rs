@@ -1,4 +1,4 @@
-//! GPU backend for aurum — Goldilocks field via wgpu compute shaders.
+//! GPU backend for nebu — Goldilocks field via wgpu compute shaders.
 //!
 //! Provides GPU-accelerated operations:
 //! - `eval_field_op` — run a single field expression on the GPU

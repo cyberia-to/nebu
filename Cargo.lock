@@ -27,27 +27,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "aurum"
-version = "0.1.0"
-
-[[package]]
-name = "aurum-cli"
-version = "0.1.0"
-dependencies = [
- "aurum",
- "aurum-wgsl",
-]
-
-[[package]]
-name = "aurum-wgsl"
-version = "0.1.0"
-dependencies = [
- "aurum",
- "pollster",
- "wgpu",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -479,6 +458,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8c196769dd60fd4f363e11d948139556a344e79d451aeb2fa2fd040738ef7691"
 dependencies = [
  "jni-sys",
+]
+
+[[package]]
+name = "nebu"
+version = "0.1.0"
+
+[[package]]
+name = "nebu-cli"
+version = "0.1.0"
+dependencies = [
+ "nebu",
+ "nebu-wgsl",
+]
+
+[[package]]
+name = "nebu-wgsl"
+version = "0.1.0"
+dependencies = [
+ "nebu",
+ "pollster",
+ "wgpu",
 ]
 
 [[package]]

@@ -2,7 +2,7 @@
 tags: cyber, cip
 crystal-type: entity
 crystal-domain: cyber
-alias: aurum explanation, field encyclopedia
+alias: nebu explanation, field encyclopedia
 ---
 
 # finite field arithmetic

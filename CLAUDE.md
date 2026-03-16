@@ -536,11 +536,11 @@ all files that have it — it is not decoration.
 
 ---
 
-# aurum — Goldilocks field library
+# nebu — Goldilocks field library
 
-## what aurum is
+## what nebu is
 
-aurum is the Goldilocks prime field $\mathbb{F}_p$ where $p = 2^{64} - 2^{32} + 1$.
+nebu is the Goldilocks prime field $\mathbb{F}_p$ where $p = 2^{64} - 2^{32} + 1$.
 it provides field arithmetic as a standalone primitive: add, sub, mul, inv, eq, lt,
 plus NTT (Number Theoretic Transform) over roots of unity.
 
@@ -548,9 +548,9 @@ plus NTT (Number Theoretic Transform) over roots of unity.
 
 | repo | path | role |
 |------|------|------|
-| aurum | `~/git/aurum/` | Goldilocks field arithmetic (this repo) |
-| hemera | `~/git/hemera/` | hash function (Poseidon2), depends on aurum |
-| nox | `~/git/nox/` | VM, depends on aurum + hemera |
+| nebu | `~/git/nebu/` | Goldilocks field arithmetic (this repo) |
+| hemera | `~/git/hemera/` | hash function (Poseidon2), depends on nebu |
+| nox | `~/git/nox/` | VM, depends on nebu + hemera |
 | zheng | `~/git/zheng/` | proof system (SuperSpartan + WHIR) |
 | mudra | `~/git/mudra/` | crypto primitives (KEM, dCTIDH, TFHE, threshold) |
 | bbg | `~/git/bbg/` | authenticated state (Big Badass Graph) |

@@ -1,4 +1,4 @@
-// ── aurum/encoding ────────────────────────────────────────────────
+// ── nebu/encoding ────────────────────────────────────────────────
 //
 // Byte ↔ Goldilocks element conversion for GPU compute.
 // 7 bytes per element, little-endian.

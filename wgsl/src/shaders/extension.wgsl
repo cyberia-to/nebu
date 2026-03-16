@@ -1,4 +1,4 @@
-// ── aurum/extension ───────────────────────────────────────────────
+// ── nebu/extension ───────────────────────────────────────────────
 //
 // Quadratic extension F_{p²} = F_p[u] / (u² - 7).
 // Elements are (re, im) as vec4<u32>(re_lo, re_hi, im_lo, im_hi).

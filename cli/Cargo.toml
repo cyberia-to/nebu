@@ -1,12 +1,12 @@
 [package]
-name = "aurum-cli"
+name = "nebu-cli"
 version = "0.1.0"
 edition = "2024"
 
 [[bin]]
-name = "aurum"
+name = "nebu"
 path = "src/main.rs"
 
 [dependencies]
-aurum = { path = "../rs" }
-aurum-wgsl = { path = "../wgsl" }
+nebu = { path = "../rs" }
+nebu-wgsl = { path = "../wgsl" }

@@ -1,11 +1,11 @@
-//! aurum CLI — Goldilocks field calculator, encoder, NTT, and benchmarks.
+//! nebu CLI — Goldilocks field calculator, encoder, NTT, and benchmarks.
 //!
 //! Supports GPU (wgpu) and CPU backends. GPU is default when available.
 //! Use --gpu or --cpu flags to force a backend.
 
-use aurum::field::{Goldilocks, P};
-use aurum::{Fp2, batch, encoding, ntt, sqrt};
-use aurum_wgsl::GpuContext;
+use nebu::field::{Goldilocks, P};
+use nebu::{Fp2, batch, encoding, ntt, sqrt};
+use nebu_wgsl::GpuContext;
 use std::env;
 use std::hint::black_box;
 use std::time::Instant;
@@ -105,24 +105,24 @@ fn print_usage() {
     eprintln!(
         "\
 \x1b[33m
-     █████╗ ██╗   ██╗██████╗ ██╗   ██╗███╗   ███╗
-\x1b[33m    ██╔══██╗██║   ██║██╔══██╗██║   ██║████╗ ████║
-\x1b[32m    ███████║██║   ██║██████╔╝██║   ██║██╔████╔██║
-\x1b[36m    ██╔══██║██║   ██║██╔══██╗██║   ██║██║╚██╔╝██║
-\x1b[34m    ██║  ██║╚██████╔╝██║  ██║╚██████╔╝██║ ╚═╝ ██║
-\x1b[35m    ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝
+     ███╗   ██╗███████╗██████╗ ██╗   ██╗
+\x1b[33m    ████╗  ██║██╔════╝██╔══██╗██║   ██║
+\x1b[32m    ██╔██╗ ██║█████╗  ██████╔╝██║   ██║
+\x1b[36m    ██║╚██╗██║██╔══╝  ██╔══██╗██║   ██║
+\x1b[34m    ██║ ╚████║███████╗██████╔╝╚██████╔╝
+\x1b[35m    ╚═╝  ╚═══╝╚══════╝╚═════╝  ╚═════╝
 \x1b[0m\x1b[37m    the golden field\x1b[0m
 \x1b[90m
     Goldilocks · p = 2^64 - 2^32 + 1 · g=7 · two-adicity=32
     F_p2 = F_p[u]/(u^2-7) · NTT up to 2^32 · sqrt via Tonelli-Shanks
 \x1b[0m
-  aurum calc <op> <args...>      field arithmetic
-  aurum encode <bytes>           bytes to field elements
-  aurum encode --hex <hex>       hex to field elements
-  aurum decode <elem...>         field elements to bytes
-  aurum ntt <elem...>            forward NTT
-  aurum intt <elem...>           inverse NTT
-  aurum bench [op] [iterations]  benchmark operations
+  nebu calc <op> <args...>      field arithmetic
+  nebu encode <bytes>           bytes to field elements
+  nebu encode --hex <hex>       hex to field elements
+  nebu decode <elem...>         field elements to bytes
+  nebu ntt <elem...>            forward NTT
+  nebu intt <elem...>           inverse NTT
+  nebu bench [op] [iterations]  benchmark operations
 \x1b[90m
   calc ops: add sub mul inv neg sqrt pow7 exp square legendre
             batch-inv fp2-add fp2-sub fp2-mul fp2-inv fp2-conj fp2-norm
@@ -161,7 +161,7 @@ fn fmt_field(g: Goldilocks) -> String {
 
 fn need_args(args: &[String], n: usize, usage: &str) {
     if args.len() < n {
-        eprintln!("usage: aurum calc {usage}");
+        eprintln!("usage: nebu calc {usage}");
         std::process::exit(1);
     }
 }
@@ -220,7 +220,7 @@ fn print_results(results: &[String], backend: Backend, elapsed: std::time::Durat
 
 fn cmd_calc(forced: Option<Backend>, args: &[String]) {
     if args.is_empty() {
-        eprintln!("usage: aurum calc <op> <args...>");
+        eprintln!("usage: nebu calc <op> <args...>");
         std::process::exit(1);
     }
     let ctx = Ctx::new(forced);
@@ -495,7 +495,7 @@ fn cmd_calc(forced: Option<Backend>, args: &[String]) {
 
 fn cmd_encode(args: &[String]) {
     if args.is_empty() {
-        eprintln!("usage: aurum encode [--hex] <data>");
+        eprintln!("usage: nebu encode [--hex] <data>");
         std::process::exit(1);
     }
 
@@ -518,7 +518,7 @@ fn cmd_encode(args: &[String]) {
 
 fn cmd_decode(args: &[String]) {
     if args.is_empty() {
-        eprintln!("usage: aurum decode <element1> [element2] ...");
+        eprintln!("usage: nebu decode <element1> [element2] ...");
         std::process::exit(1);
     }
 
@@ -536,7 +536,7 @@ fn cmd_decode(args: &[String]) {
 
 fn cmd_ntt(forced: Option<Backend>, args: &[String]) {
     if args.is_empty() {
-        eprintln!("usage: aurum ntt <e1> <e2> ... (length must be power of 2)");
+        eprintln!("usage: nebu ntt <e1> <e2> ... (length must be power of 2)");
         std::process::exit(1);
     }
     let data: Vec<Goldilocks> = args.iter().map(|s| parse_field(s)).collect();
@@ -566,7 +566,7 @@ fn cmd_ntt(forced: Option<Backend>, args: &[String]) {
 
 fn cmd_intt(forced: Option<Backend>, args: &[String]) {
     if args.is_empty() {
-        eprintln!("usage: aurum intt <e1> <e2> ... (length must be power of 2)");
+        eprintln!("usage: nebu intt <e1> <e2> ... (length must be power of 2)");
         std::process::exit(1);
     }
     let data: Vec<Goldilocks> = args.iter().map(|s| parse_field(s)).collect();

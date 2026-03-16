@@ -4,9 +4,9 @@
 //! compares results. This is the bridge between the two independent
 //! implementations: rs/ (CPU) and wgsl/ (GPU).
 
-use aurum::field::Goldilocks;
-use aurum::Fp2;
-use aurum_wgsl::GpuContext;
+use nebu::field::Goldilocks;
+use nebu::Fp2;
+use nebu_wgsl::GpuContext;
 
 // ── Helpers ────────────────────────────────────────────────────────
 
@@ -197,7 +197,7 @@ fn gpu_ntt_roundtrip() {
         Goldilocks::new(4),
     ];
     let mut cpu_data = input;
-    aurum::ntt::ntt(&mut cpu_data);
+    nebu::ntt::ntt(&mut cpu_data);
 
     let mut gpu_data: Vec<(u32, u32)> = input.iter().map(|g| to_lohi(*g)).collect();
     ctx.run_ntt(&mut gpu_data);

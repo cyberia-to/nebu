@@ -1,4 +1,4 @@
-// ── aurum/field ───────────────────────────────────────────────────
+// ── nebu/field ───────────────────────────────────────────────────
 //
 // Goldilocks field arithmetic (p = 2^64 - 2^32 + 1).
 // All u64 values emulated as vec2<u32>(lo, hi).

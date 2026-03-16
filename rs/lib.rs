@@ -1,4 +1,4 @@
-//! aurum — Goldilocks prime field library.
+//! nebu — Goldilocks prime field library.
 
 #![no_std]
 

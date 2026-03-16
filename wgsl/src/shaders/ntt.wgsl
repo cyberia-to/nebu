@@ -1,4 +1,4 @@
-// ── aurum/ntt ─────────────────────────────────────────────────────
+// ── nebu/ntt ─────────────────────────────────────────────────────
 //
 // NTT butterfly and bit-reversal for GPU compute shaders.
 // Pure functions for butterfly operations and twiddle computation.

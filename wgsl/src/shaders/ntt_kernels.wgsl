@@ -1,4 +1,4 @@
-// ── aurum/ntt_kernels ─────────────────────────────────────────────
+// ── nebu/ntt_kernels ─────────────────────────────────────────────
 //
 // Compute shader entry points for NTT operations.
 // Concatenate: field.wgsl + ntt.wgsl + ntt_kernels.wgsl

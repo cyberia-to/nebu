@@ -2,10 +2,10 @@
 tags: cyber, cip
 crystal-type: entity
 crystal-domain: cyber
-alias: aurum reference, aurum specification
+alias: nebu reference, nebu specification
 ---
 
-# aurum specification
+# nebu specification
 
 canonical reference for the Goldilocks prime field, its arithmetic, and its hardware.
 
