@@ -17,7 +17,7 @@ the multiplicative group F_p* has order p − 1 = 2³² × (2³² − 1). the fa
 ω = g^((p−1) / 2³²)
 ```
 
-where g is a primitive root of F_p*. this root enables NTT of length up to 2³² — sufficient for any polynomial arithmetic in the STARK prover.
+where g = 7 is the primitive root of F_p* (see [[field]] § primitive root). this root enables NTT of length up to 2³².
 
 for NTT of length N = 2ᵏ (where k ≤ 32), the N-th root of unity is:
 
@@ -25,7 +25,7 @@ for NTT of length N = 2ᵏ (where k ≤ 32), the N-th root of unity is:
 ω_N = g^((p−1) / N)
 ```
 
-the inverse root ω_N⁻¹ exists because gcd(N, p−1) = N (N divides p−1). this guarantees the inverse NTT is well-defined.
+the inverse root ω_N⁻¹ = ω_N^(N−1) exists because N divides p−1. this guarantees the inverse NTT is well-defined.
 
 ## butterfly operation
 
@@ -36,28 +36,106 @@ a' = a + ω · b
 b' = a − ω · b
 ```
 
-two field additions and one field multiplication. over Goldilocks, each operation completes in one or two machine cycles — no multi-limb arithmetic, no Montgomery reduction.
+two field additions and one field multiplication. the twiddle factor `ω · b` is computed once and reused for both outputs:
+
+```
+butterfly(a, b, ω):
+  t = ω · b
+  return (a + t, a − t)
+```
+
+over Goldilocks, each field operation completes in one or two machine cycles — no multi-limb arithmetic, no Montgomery reduction.
 
 the full NTT of length N = 2ᵏ performs N/2 × k butterflies. for N = 2³² (maximum length): 2³¹ × 32 = 2³⁶ butterflies.
 
-## Cooley-Tukey decomposition
+## bit-reversal permutation
 
-the NTT follows the standard radix-2 decimation-in-time algorithm:
+the decimation-in-time algorithm requires bit-reversed input ordering. for an N = 2ᵏ point NTT, index i maps to bit_reverse(i, k):
 
 ```
-for s in 0..k:
+bit_reverse(i, k):
+  result = 0
+  for b in 0..k:
+    result = result | (((i >> b) & 1) << (k − 1 − b))
+  return result
+```
+
+the bit-reversal permutation is applied in-place before the forward NTT:
+
+```
+for i in 0..N:
+  j = bit_reverse(i, k)
+  if i < j:
+    swap(a[i], a[j])
+```
+
+## forward NTT (Cooley-Tukey)
+
+radix-2 decimation-in-time. input in bit-reversed order, output in natural order.
+
+```
+ntt(a[0..N], g):
+  k = log2(N)
+  bit_reverse_permute(a)
+  for s in 0..k:
     m = 2^(s+1)
     ω_m = g^((p−1) / m)
     for j in (0..N).step_by(m):
-        w = 1
-        for i in 0..m/2:
-            t = w · a[j + i + m/2]
-            a[j + i + m/2] = a[j + i] − t
-            a[j + i]       = a[j + i] + t
-            w = w · ω_m
+      w = 1
+      for i in 0..m/2:
+        t = w · a[j + i + m/2]
+        a[j + i + m/2] = a[j + i] − t
+        a[j + i]       = a[j + i] + t
+        w = w · ω_m
 ```
 
-input is in bit-reversed order. output is in natural order. the inverse NTT uses ω_m⁻¹ and scales the result by N⁻¹.
+## inverse NTT (Gentleman-Sande)
+
+radix-2 decimation-in-frequency. input in natural order, output in bit-reversed order (then permuted back).
+
+```
+intt(a[0..N], g):
+  k = log2(N)
+  for s in (0..k).rev():
+    m = 2^(s+1)
+    ω_m_inv = g^((p−1) − (p−1)/m)          // = (g^((p−1)/m))⁻¹
+    for j in (0..N).step_by(m):
+      w = 1
+      for i in 0..m/2:
+        u = a[j + i]
+        v = a[j + i + m/2]
+        a[j + i]       = u + v
+        a[j + i + m/2] = w · (u − v)
+        w = w · ω_m_inv
+  bit_reverse_permute(a)
+  n_inv = N⁻¹ mod p                        // = (p − (p−1)/N) mod p
+  for i in 0..N:
+    a[i] = a[i] · n_inv
+```
+
+the inverse NTT scales by N⁻¹ to satisfy the identity: `intt(ntt(a)) = a`.
+
+N⁻¹ mod p exists because gcd(N, p) = 1 (N is a power of 2, p is odd).
+
+## twiddle factor precomputation
+
+for NTT of fixed length N, the twiddle factors ω_m^i can be precomputed and stored in a table of N/2 elements. this trades N/2 field elements of memory for eliminating repeated exponentiations during the transform.
+
+```
+precompute_twiddles(N, g):
+  k = log2(N)
+  table = []
+  for s in 0..k:
+    m = 2^(s+1)
+    ω_m = g^((p−1) / m)
+    w = 1
+    for i in 0..m/2:
+      table.push(w)
+      w = w · ω_m
+  return table
+```
+
+the inverse NTT uses the conjugate twiddles: replace each ω with ω⁻¹ = ω^(N−1).
 
 ## hardware support
 

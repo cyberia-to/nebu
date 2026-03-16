@@ -3,11 +3,14 @@ tags: cyber, cip
 crystal-type: entity
 crystal-domain: cyber
 alias: GFP, Goldilocks Field Processor, hardware primitives
+status: proposal
 ---
 
 # hardware specification
 
-the [[GFP]] (Goldilocks Field Processor) — four hardware primitives optimized for the Goldilocks field.
+**status: proposal** — design intent for the [[GFP]] (Goldilocks Field Processor). no silicon exists yet. ISA encodings, timing models, and register file layout are not specified. this page defines the target instruction set for future hardware, not a buildable specification.
+
+the [[GFP]] — four hardware primitives optimized for the Goldilocks field.
 
 ## primitives
 

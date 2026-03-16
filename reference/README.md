@@ -16,7 +16,8 @@ canonical reference for the Goldilocks prime field, its arithmetic, and its hard
 | [[field]] | prime, elements, arithmetic, properties, why Goldilocks |
 | [[ntt]] | Number Theoretic Transform, roots of unity, butterfly, Cooley-Tukey |
 | [[encoding]] | 7-byte input encoding, 8-byte output encoding, padding, throughput |
-| [[hardware]] | GFP primitives: fma, ntt, p2r, lut |
+| [[vectors]] | known-answer test vectors for all field operations |
+| [[hardware]] | GFP primitives: fma, ntt, p2r, lut (proposal) |
 
 ## see also
 
