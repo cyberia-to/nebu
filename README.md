@@ -51,29 +51,16 @@ radix-2 with bit-reversal permutation. primitive root g = 7. typical proving dom
 
 ## the stack
 
-```
-nebu (field arithmetic)
-  ↑
-hemera (Poseidon2 hash — permutes nebu elements)
-  ↑
-nox (virtual machine — field patterns are nebu operations)
-  ↑           ↑
-zheng         bbg
-(proofs)      (state)
-```
+every butterfly in an NTT, every round of [[hemera]], every field operation in a [[nox]] reduction, every polynomial evaluation in a [[zheng]] proof — all of it is nebu arithmetic over the same prime.
 
-every butterfly in an NTT, every round of hemera, every field operation in a nox reduction, every polynomial evaluation in a zheng proof — all of it is nebu arithmetic over the same prime.
-
-## companion repos
-
-| repo | role | github |
-|------|------|--------|
-| [[hemera]] | hash function | [hemera](https://github.com/cyberia-to/hemera) |
-| [[nox]] | virtual machine | [nox](https://github.com/cyberia-to/nox) |
-| [[zheng]] | proof system | [zheng](https://github.com/cyberia-to/zheng) |
-| [[bbg]] | authenticated state | [bbg](https://github.com/cyberia-to/bbg) |
-| [[mudra]] | communication primitives | [mudra](https://github.com/cyberia-to/mudra) |
-| [[trident]] | language compiler | [trident](https://github.com/cyberia-to/trident) |
+| repo | role | depends on nebu via | github |
+|------|------|---------------------|--------|
+| [[hemera]] | hash function | Poseidon2 permutation over field elements | [hemera](https://github.com/cyberia-to/hemera) |
+| [[nox]] | virtual machine | 6 field patterns map directly to nebu ops | [nox](https://github.com/cyberia-to/nox) |
+| [[zheng]] | proof system | NTT, polynomial evaluation, commitment arithmetic | [zheng](https://github.com/cyberia-to/zheng) |
+| [[bbg]] | authenticated state | NMT hashing, polynomial commitments | [bbg](https://github.com/cyberia-to/bbg) |
+| [[mudra]] | communication primitives | NTT for TFHE, field arithmetic for key exchange | [mudra](https://github.com/cyberia-to/mudra) |
+| [[trident]] | language compiler | compiles to nox field patterns | [trident](https://github.com/cyberia-to/trident) |
 
 ## license
 
