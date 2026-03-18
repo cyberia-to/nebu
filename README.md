@@ -72,7 +72,7 @@ every butterfly in an NTT, every round of hemera, every field operation in a nox
 | [[nox]] | virtual machine | [nox](https://github.com/cyberia-to/nox) |
 | [[zheng]] | proof system | [zheng](https://github.com/cyberia-to/zheng) |
 | [[bbg]] | authenticated state | [bbg](https://github.com/cyberia-to/bbg) |
-| [[mudra]] | crypto primitives | [mudra](https://github.com/cyberia-to/mudra) |
+| [[mudra]] | communication primitives | [mudra](https://github.com/cyberia-to/mudra) |
 | [[trident]] | language compiler | [trident](https://github.com/cyberia-to/trident) |
 
 ## license
