@@ -3,7 +3,7 @@
 #[cfg(test)]
 mod tests {
     use crate::field::{Goldilocks, P};
-    use crate::extension::Fp2;
+    use crate::extension::{Fp2, Fp3, Fp4};
     use crate::sqrt;
     use crate::batch;
 
@@ -307,5 +307,139 @@ mod tests {
         assert_eq!(c.re.as_u64(), 1);
         assert_eq!(c.im.as_u64(), P - 1);
         assert_eq!(x.norm().as_u64(), 0xFFFFFFFEFFFFFFFB);
+    }
+
+    // ── Cubic extension field ─────────────────────────────────────────
+
+    #[test]
+    fn fp3_mul_small() {
+        // (2 + 3t + 5t²)(4 + 7t + 11t²)
+        let x = Fp3::new(g(2), g(3), g(5));
+        let y = Fp3::new(g(4), g(7), g(11));
+        let z = x * y;
+        // d0=8, d1=14+12=26, d2=22+21+20=63, d3=33+35=68, d4=55
+        // c0=8+68=76, c1=26+68+55=149, c2=63+55=118
+        assert_eq!(z.c0.as_u64(), 76);
+        assert_eq!(z.c1.as_u64(), 149);
+        assert_eq!(z.c2.as_u64(), 118);
+    }
+
+    #[test]
+    fn fp3_sqr_vs_mul() {
+        let x = Fp3::new(g(2), g(3), g(5));
+        let sq = x.sqr();
+        let mm = x * x;
+        assert_eq!(sq, mm);
+    }
+
+    #[test]
+    fn fp3_inv_roundtrip() {
+        let x = Fp3::new(g(2), g(3), g(5));
+        let xi = x.inv();
+        let one = x * xi;
+        assert_eq!(one.c0.as_u64(), 1);
+        assert_eq!(one.c1.as_u64(), 0);
+        assert_eq!(one.c2.as_u64(), 0);
+    }
+
+    #[test]
+    fn fp3_inv_large() {
+        let x = Fp3::new(g(0x123456789ABCDEF0), g(0xFEDCBA9876543210), g(0xAAAAAAAA));
+        let xi = x.inv();
+        let one = x * xi;
+        assert_eq!(one.c0.as_u64(), 1);
+        assert_eq!(one.c1.as_u64(), 0);
+        assert_eq!(one.c2.as_u64(), 0);
+    }
+
+    #[test]
+    fn fp3_norm_small() {
+        let x = Fp3::new(g(1), g(0), g(0));
+        assert_eq!(x.norm().as_u64(), 1);  // norm(1) = 1
+    }
+
+    // ── Quartic extension field ───────────────────────────────────────
+
+    #[test]
+    fn fp4_mul_small() {
+        // (2 + 3w + 5w² + 11w³)(4 + 7w + 13w² + 17w³)
+        let x = Fp4::new(g(2), g(3), g(5), g(11));
+        let y = Fp4::new(g(4), g(7), g(13), g(17));
+        let z = x * y;
+        // d0=8, d1=14+12=26, d2=26+21+20=67, d3=34+33+35+44=146
+        // d4=51+55+77=183, d5=85+143=228, d6=187
+        // d=[8,26,67,152,193,228,187], c0=8+7*193=1359, c1=26+7*228=1622, c2=67+7*187=1376, c3=152
+        assert_eq!(z.c0.as_u64(), 1359);
+        assert_eq!(z.c1.as_u64(), 1622);
+        assert_eq!(z.c2.as_u64(), 1376);
+        assert_eq!(z.c3.as_u64(), 152);
+    }
+
+    #[test]
+    fn fp4_sqr_vs_mul() {
+        let x = Fp4::new(g(2), g(3), g(5), g(11));
+        let sq = x.sqr();
+        let mm = x * x;
+        assert_eq!(sq, mm);
+    }
+
+    #[test]
+    fn fp4_inv_roundtrip() {
+        let x = Fp4::new(g(2), g(3), g(5), g(11));
+        let xi = x.inv();
+        let one = x * xi;
+        assert_eq!(one.c0.as_u64(), 1);
+        assert_eq!(one.c1.as_u64(), 0);
+        assert_eq!(one.c2.as_u64(), 0);
+        assert_eq!(one.c3.as_u64(), 0);
+    }
+
+    #[test]
+    fn fp4_inv_large() {
+        let x = Fp4::new(g(0x123456789ABCDEF0), g(0xFEDCBA9876543210), g(0xAAAAAAAA), g(0x55555555));
+        let xi = x.inv();
+        let one = x * xi;
+        assert_eq!(one.c0.as_u64(), 1);
+        assert_eq!(one.c1.as_u64(), 0);
+        assert_eq!(one.c2.as_u64(), 0);
+        assert_eq!(one.c3.as_u64(), 0);
+    }
+
+    #[test]
+    fn fp4_from_fp2_embedding() {
+        let x = Fp2::new(g(2), g(3));
+        let y = Fp2::new(g(4), g(5));
+        // Fp2 multiplication
+        let z2 = x * y;
+        // Embed into Fp4 and multiply
+        let x4 = Fp4::from_fp2(x);
+        let y4 = Fp4::from_fp2(y);
+        let z4 = x4 * y4;
+        // Fp4 result should embed the Fp2 result
+        assert_eq!(z4.c0.as_u64(), z2.re.as_u64());
+        assert_eq!(z4.c1.as_u64(), 0);
+        assert_eq!(z4.c2.as_u64(), z2.im.as_u64());
+        assert_eq!(z4.c3.as_u64(), 0);
+    }
+
+    #[test]
+    fn fp4_conj() {
+        let x = Fp4::new(g(2), g(3), g(5), g(11));
+        let c = x.conj();
+        assert_eq!(c.c0.as_u64(), 2);
+        assert_eq!(c.c1.as_u64(), P - 3);
+        assert_eq!(c.c2.as_u64(), 5);
+        assert_eq!(c.c3.as_u64(), P - 11);
+    }
+
+    #[test]
+    fn fp4_frobenius_order() {
+        // σ⁴(x) = x for all x ∈ Fp4
+        let x = Fp4::new(g(2), g(3), g(5), g(11));
+        let f1 = x.frobenius();
+        let f2 = f1.frobenius();
+        let f3 = f2.frobenius();
+        let f4 = f3.frobenius();
+        assert_eq!(f4, x);
     }
 }

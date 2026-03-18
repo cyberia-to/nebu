@@ -19,7 +19,7 @@ an encyclopedia of the mathematics behind the Goldilocks field — from first pr
 - [[goldilocks]] — why this prime, the ε reduction identity, add/sub/mul/inversion algorithms, S-box, batch inversion, comparison with Barrett and Montgomery
 - [[sqrt]] — square root and Legendre symbol (Tonelli-Shanks, sign convention)
 - [[batch]] — batch inversion (Montgomery's trick, amortized 3 muls/element)
-- [[extension]] — quadratic extension F_{p²} = F_p[u]/(u²−7) for 128-bit security
+- [[fp2]] — quadratic extension F_{p²} = F_p[u]/(u²−7) for 128-bit security
 
 ## algebraic structure
 

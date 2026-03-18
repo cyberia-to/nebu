@@ -5,7 +5,7 @@ crystal-domain: cyber
 alias: quadratic extension, F_p², extension field, Fp2
 ---
 
-# extension field specification
+# quadratic extension field specification
 
 the quadratic extension F_{p²} over the Goldilocks field. required for 128-bit security in recursive STARK verification.
 
@@ -150,5 +150,7 @@ the embedding preserves addition, multiplication, and inversion. F_p arithmetic 
 ## see also
 
 - [[field]] § primitive root — 7 as quadratic non-residue (irreducibility proof)
+- [[fp3]] — cubic extension F_{p³} for recursive composition
+- [[fp4]] — quartic extension F_{p⁴}, tower Fp4 = Fp2[v]/(v²−u)
 - [[ntt]] — NTT over F_p (base field); extension field NTT uses the same roots
 - [[vectors]] § extension field — known-answer tests for F_{p²} arithmetic

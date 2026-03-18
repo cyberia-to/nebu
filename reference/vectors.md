@@ -177,3 +177,55 @@ verification: x · x⁻¹ = (1, 0).
 | (1, 1) | (1, p−1) | `0xFFFFFFFEFFFFFFFB` |
 
 norm(1+u) = 1 − 7 = p − 6 = 0xFFFFFFFEFFFFFFFB.
+
+## cubic extension field
+
+F_{p³} = F_p[t] / (t³ − t − 1). elements written as (c0, c1, c2) representing c0 + c1·t + c2·t².
+
+### cubic multiplication
+
+| x | y | x · y |
+|---|---|---|
+| (2, 3, 5) | (4, 7, 11) | (76, 149, 118) |
+
+expansion: d=[8,26,63,68,55], reduce via t³=t+1: c0=8+68=76, c1=26+68+55=149, c2=63+55=118.
+
+### cubic inversion
+
+| x | x⁻¹ |
+|---|---|
+| (2, 3, 5) | roundtrip: x · x⁻¹ = (1, 0, 0) |
+
+norm(2, 3, 5) = 67. adjugate/67 gives the inverse.
+
+## quartic extension field
+
+F_{p⁴} = F_p[w] / (w⁴ − 7). elements written as (c0, c1, c2, c3) representing c0 + c1·w + c2·w² + c3·w³.
+
+### quartic multiplication
+
+| x | y | x · y |
+|---|---|---|
+| (2, 3, 5, 11) | (4, 7, 13, 17) | (1359, 1622, 1376, 152) |
+
+expansion: d=[8,26,67,152,193,228,187], reduce via w⁴=7: c0=8+7·193=1359, c1=26+7·228=1622, c2=67+7·187=1376, c3=152.
+
+### quartic inversion
+
+| x | x⁻¹ |
+|---|---|
+| (2, 3, 5, 11) | roundtrip: x · x⁻¹ = (1, 0, 0, 0) |
+
+tower inversion: Fp2-norm, invert in Fp2, scale conjugate.
+
+### Fp2 embedding
+
+| Fp2 input | Fp4 embedding | Fp2 product | Fp4 product |
+|---|---|---|---|
+| (2, 3) × (4, 5) | (2, 0, 3, 0) × (4, 0, 5, 0) | (113, 22) | (113, 0, 22, 0) |
+
+Fp2 arithmetic is a special case of Fp4 arithmetic.
+
+### quartic Frobenius
+
+σ⁴(x) = x for all x ∈ F_{p⁴}. Frobenius constant: 7^((p−1)/4) = 2⁴⁸.

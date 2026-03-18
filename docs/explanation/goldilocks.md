@@ -216,4 +216,4 @@ the [[GFP]] (Goldilocks Field Processor) has four primitives optimized for this 
 - [[applications]] — STARK proofs, Poseidon2, FHE
 - [[sqrt]] — square root (Tonelli-Shanks) over Goldilocks
 - [[batch]] — batch inversion (Montgomery's trick)
-- [[extension]] — F_{p²} for 128-bit recursive STARK security
+- [[fp2]] — F_{p²} for 128-bit recursive STARK security

@@ -19,7 +19,9 @@ canonical reference for the Goldilocks prime field, its arithmetic, and its hard
 | [[vectors]] | known-answer test vectors for all field operations |
 | [[sqrt]] | square root, Legendre symbol, Tonelli-Shanks |
 | [[batch]] | batch inversion, Montgomery's trick |
-| [[extension]] | quadratic extension F_{p²}, 128-bit security |
+| [[fp2]] | quadratic extension F_{p²}, 128-bit security |
+| [[fp3]] | cubic extension F_{p³}, recursive composition |
+| [[fp4]] | quartic extension F_{p⁴}, 256-bit security, recursion tower |
 | [[hardware]] | GFP primitives: fma, ntt, p2r, lut (proposal) |
 
 ## see also

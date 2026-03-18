@@ -33,7 +33,7 @@ the prover's cost is dominated by NTTs: O(N log N) field multiplications where N
 
 the verifier's cost is O(log² N) — exponentially cheaper than the prover. this asymmetry is the power of STARKs.
 
-**recursive verification and F_{p²}.** in recursive STARKs, the verifier runs inside a proof circuit. FRI challenges must come from F_{p²} (not F_p alone) to achieve 128-bit security — the base field gives only ~64 bits. the recursive verifier circuit performs F_{p²} arithmetic: multiplication, inversion, and addition over the extension. see [[extension]].
+**recursive verification and F_{p²}.** in recursive STARKs, the verifier runs inside a proof circuit. FRI challenges must come from F_{p²} (not F_p alone) to achieve 128-bit security — the base field gives only ~64 bits. the recursive verifier circuit performs F_{p²} arithmetic: multiplication, inversion, and addition over the extension. see [[fp2]].
 
 ## Poseidon2 hashing
 

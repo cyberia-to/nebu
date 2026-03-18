@@ -41,11 +41,20 @@ six core operations matching [[nox]] Layer 1 field patterns:
 
 radix-2 with bit-reversal permutation. primitive root g = 7. typical proving domains: 2¹⁸–2²⁴ points.
 
-### extensions and encoding
+### extension fields
+
+| extension | construction | security | use case |
+|-----------|-------------|----------|----------|
+| F_{p²} | F_p[u]/(u²−7) | 128-bit | STARK verification challenges |
+| F_{p³} | F_p[t]/(t³−t−1) | 192-bit | recursive proof composition |
+| F_{p⁴} | F_p[w]/(w⁴−7) | 256-bit | deep recursion, long-lived commitments |
+
+F_{p²} and F_{p⁴} form a tower: Fp4 = Fp2[v]/(v²−u). F_{p³} has degree coprime to 2, separating inner/outer evaluation domains in recursive STARKs.
+
+### encoding and roots
 
 | operation | method |
 |-----------|--------|
-| quadratic extension | F_{p²} for 128-bit security |
 | encoding | 7-byte LE input → field element, 8-byte canonical output |
 | square roots | Tonelli-Shanks with Legendre symbol |
 

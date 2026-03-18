@@ -13,4 +13,4 @@ pub mod extension;
 mod vectors;
 
 pub use field::Goldilocks;
-pub use extension::Fp2;
+pub use extension::{Fp2, Fp3, Fp4};
