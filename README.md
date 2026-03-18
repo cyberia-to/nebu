@@ -1,6 +1,6 @@
 # nebu
 
-Goldilocks field arithmetic for [[cyber]]. the single prime that unifies the entire stack — from VM execution to hash functions to polynomial commitments to proof generation.
+Goldilocks field arithmetic for cyber. the single prime that unifies the entire stack — from virtual machine execution to hash functions to polynomial commitments to proof generation.
 
 ```
 p = 2⁶⁴ - 2³² + 1 = 18,446,744,069,414,584,321
@@ -12,13 +12,13 @@ p = 2⁶⁴ - 2³² + 1 = 18,446,744,069,414,584,321
 
 **massive two-adicity.** `p - 1` has factor `2³²`, giving NTT (Number Theoretic Transform) over domains up to 4 billion points. polynomial evaluation and interpolation — the core operations of STARK proving — run at native speed on roots of unity that exist naturally in the field.
 
-**7-byte absorption.** field elements encode unconditionally in 7 bytes, giving [[hemera]] a 56-byte absorption rate at sponge width 8. no rejection sampling. no variable-length encoding. constant-time stream processing from bytes to field elements.
+**7-byte absorption.** field elements encode unconditionally in 7 bytes, giving hemera a 56-byte absorption rate at sponge width 8. no rejection sampling. no variable-length encoding. constant-time stream processing from bytes to field elements.
 
-**one field everywhere.** every layer of [[cyber]] speaks Goldilocks: [[nox]] (VM arithmetic), [[hemera]] (hash permutation), [[zheng]] (STARK proofs and polynomial commitments), [[bbg]] (authenticated state), [[mudra]] (crypto primitives). one field means one implementation to audit, one set of test vectors, one hardware target.
+**one field everywhere.** every layer of cyber speaks Goldilocks: nox, hemera, zheng, bbg, mudra. one field means one implementation to audit, one set of test vectors, one hardware target.
 
 ## what nebu provides
 
-**six core operations** matching [[nox]] Layer 1 field patterns:
+**six core operations** matching nox Layer 1 field patterns:
 
 | op | what | cost |
 |----|------|------|
@@ -46,7 +46,7 @@ nebu (field arithmetic)
   ↑
 hemera (Poseidon2 hash — permutes nebu elements)
   ↑
-nox (VM — field patterns are nebu operations)
+nox (virtual machine — field patterns are nebu operations)
   ↑           ↑
 zheng         bbg
 (proofs)      (state)
@@ -58,12 +58,12 @@ every butterfly in an NTT, every round of hemera, every field operation in a nox
 
 | repo | path | role |
 |------|------|------|
-| [[hemera]] | ~/git/hemera/ | hash function (Poseidon2 over nebu elements) |
-| [[nox]] | ~/git/nox/ | VM (field patterns map to nebu ops) |
-| [[zheng]] | ~/git/zheng/ | proof system (NTT, polynomial arithmetic) |
-| [[bbg]] | ~/git/bbg/ | authenticated state (polynomial commitments) |
-| [[mudra]] | ~/git/mudra/ | crypto primitives (TFHE uses NTT) |
-| [[trident]] | ~/git/trident/ | language compiler |
+| hemera | ~/git/hemera/ | hash function |
+| nox | ~/git/nox/ | virtual machine |
+| zheng | ~/git/zheng/ | proof system |
+| bbg | ~/git/bbg/ | authenticated state |
+| mudra | ~/git/mudra/ | crypto primitives |
+| trident | ~/git/trident/ | language compiler |
 
 ## license
 
