@@ -1,6 +1,6 @@
 # nebu
 
-Goldilocks field arithmetic for cyber. the single prime that unifies the entire stack — from virtual machine execution to hash functions to polynomial commitments to proof generation.
+Goldilocks field arithmetic for [cyber](https://github.com/cyberia-to/cyber). the single prime that unifies the entire stack — from virtual machine execution to hash functions to polynomial commitments to proof generation.
 
 ```
 p = 2⁶⁴ - 2³² + 1 = 18,446,744,069,414,584,321
@@ -18,26 +18,36 @@ p = 2⁶⁴ - 2³² + 1 = 18,446,744,069,414,584,321
 
 ## what nebu provides
 
-**six core operations** matching nox Layer 1 field patterns:
+### field operations
+
+six core operations matching nox Layer 1 field patterns:
 
 | op | what | cost |
 |----|------|------|
 | add | modular addition | 1 add + conditional subtract |
 | sub | modular subtraction | 1 sub + conditional add |
 | mul | modular multiplication | 1 u128 multiply + reduction |
-| inv | field inverse (Fermat: a^{p-2}) | ~96 multiplications via addition chain |
+| inv | field inverse via Fermat | ~96 multiplications via addition chain |
 | eq | equality | 1 comparison |
 | lt | ordering | 1 comparison |
 
-**NTT** — Cooley-Tukey forward (decimation-in-time) + Gentleman-Sande inverse (decimation-in-frequency). radix-2 with bit-reversal permutation. primitive root g = 7. butterfly: `(a, b, ω) → (a + ωb, a - ωb)`. typical proving domains: 2¹⁸–2²⁴ points.
+### transforms
 
-**batch inversion** — Montgomery's trick: amortize one expensive inverse across n elements using `(n-1)` multiplications instead of n inversions.
+| operation | method |
+|-----------|--------|
+| NTT forward | Cooley-Tukey, decimation-in-time |
+| NTT inverse | Gentleman-Sande, decimation-in-frequency |
+| batch inversion | Montgomery's trick, `n-1` multiplications for `n` elements |
 
-**quadratic extension** — F_{p²} for 128-bit security when needed.
+radix-2 with bit-reversal permutation. primitive root g = 7. typical proving domains: 2¹⁸–2²⁴ points.
 
-**encoding** — 7-byte little-endian input chunks → field elements. 8-byte canonical output serialization. deterministic, constant-time.
+### extensions and encoding
 
-**square roots** — Tonelli-Shanks with Legendre symbol.
+| operation | method |
+|-----------|--------|
+| quadratic extension | F_{p²} for 128-bit security |
+| encoding | 7-byte LE input → field element, 8-byte canonical output |
+| square roots | Tonelli-Shanks with Legendre symbol |
 
 ## the stack
 
@@ -56,14 +66,14 @@ every butterfly in an NTT, every round of hemera, every field operation in a nox
 
 ## companion repos
 
-| repo | path | role |
-|------|------|------|
-| hemera | ~/git/hemera/ | hash function |
-| nox | ~/git/nox/ | virtual machine |
-| zheng | ~/git/zheng/ | proof system |
-| bbg | ~/git/bbg/ | authenticated state |
-| mudra | ~/git/mudra/ | crypto primitives |
-| trident | ~/git/trident/ | language compiler |
+| repo | role |
+|------|------|
+| [hemera](https://github.com/cyberia-to/hemera) | hash function |
+| [nox](https://github.com/cyberia-to/nox) | virtual machine |
+| [zheng](https://github.com/cyberia-to/zheng) | proof system |
+| [bbg](https://github.com/cyberia-to/bbg) | authenticated state |
+| [mudra](https://github.com/cyberia-to/mudra) | crypto primitives |
+| [trident](https://github.com/cyberia-to/trident) | language compiler |
 
 ## license
 
