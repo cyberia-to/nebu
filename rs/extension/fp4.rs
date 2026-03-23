@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Quartic extension field F_{p⁴} = F_p[w] / (w⁴ - 7).
 //!
 //! Elements are (c0, c1, c2, c3) representing c0 + c1·w + c2·w² + c3·w³.

@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Goldilocks prime field (p = 2^64 - 2^32 + 1).
 
 use core::ops::{Add, AddAssign, Mul, MulAssign, Neg, Sub, SubAssign};

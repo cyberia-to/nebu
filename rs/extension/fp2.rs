@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Quadratic extension field F_{p²} = F_p[u] / (u² - 7).
 //!
 //! Elements are (re, im) representing re + im·u where u² = 7.

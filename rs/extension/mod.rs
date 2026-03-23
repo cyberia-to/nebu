@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Extension fields over Goldilocks.
 //!
 //! - Fp2: F_{p²} = F_p[u] / (u² − 7)       — 128-bit security

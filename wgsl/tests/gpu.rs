@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! GPU cross-validation — validates WGSL implementation against CPU (Rust).
 //!
 //! Each test runs the same operation on both CPU and GPU, then

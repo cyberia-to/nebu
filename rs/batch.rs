@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Batch inversion via Montgomery's trick.
 //!
 //! Inverts N elements with 1 inversion + 3(N-1) multiplications.

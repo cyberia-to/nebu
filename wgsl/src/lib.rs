@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! GPU backend for nebu — Goldilocks field via wgpu compute shaders.
 //!
 //! Provides GPU-accelerated operations:

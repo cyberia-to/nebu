@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Square root and Legendre symbol over the Goldilocks field.
 //!
 //! Uses Tonelli-Shanks with z = 7 (quadratic non-residue).

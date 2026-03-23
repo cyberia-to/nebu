@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Number Theoretic Transform over the Goldilocks field.
 //!
 //! Forward NTT: Cooley-Tukey decimation-in-time (bit-reversed input, natural output).

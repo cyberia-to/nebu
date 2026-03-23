@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Test vectors from reference/vectors.md.
 
 #[cfg(test)]

@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Cubic extension field F_{p³} = F_p[t] / (t³ - t - 1).
 //!
 //! Elements are (c0, c1, c2) representing c0 + c1·t + c2·t².

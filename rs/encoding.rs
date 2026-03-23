@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! Byte ↔ field element encoding.
 //!
 //! Input: 7-byte LE chunks → field elements.

@@ -1,3 +1,8 @@
+// ---
+// tags: nebu, rust
+// crystal-type: source
+// crystal-domain: comp
+// ---
 //! nebu CLI — Goldilocks field calculator, encoder, NTT, and benchmarks.
 //!
 //! Supports GPU (wgpu) and CPU backends. GPU is default when available.
